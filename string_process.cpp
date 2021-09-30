@@ -20,3 +20,35 @@ const char* string_process::String_toChar(std::string _string)
   const char* c = &_string[0];
   return c;
 }
+/*******************************************************************************
+Noi Dung    :   Tim mot chuoi trong mot chuoi.
+Tham Bien   :   _string_source  :    Chuoi nguon.
+                _string_search  :    Chuoi can tim.
+                _time           :    Lan xuat hien cua chuoi can tim
+                _length         :    Do dai toi da cac ki tu can duyet trong _string_source
+Tra Ve      :   NULL            :    Neu khong tim duoc chuoi theo yeu cau.
+                !=NULL          :    Vi tri con tro Qua thoi gian _time_wait ma khong co respond tra ve
+********************************************************************************/
+bool string_process::SearchArrayInArray(const char* _string_source,const char* _string_search,uint8_t _time, uint16_t _length)
+{
+  uint16_t IndexSource=0,IndexSearch=0;
+  while(IndexSource<_length)
+  {
+    if(_string_source[IndexSource++]!=_string_search[IndexSearch++])
+    {
+      IndexSearch = 0;
+      if(_string_search[IndexSearch]==_string_source[IndexSource-1])
+        IndexSearch++;
+    }
+    if(_string_search[IndexSearch]==0)
+    {
+      if(--_time!=0)
+      {
+        IndexSearch = 0;
+        continue;
+      }
+      return true;
+    } 
+  }
+  return false;
+}
